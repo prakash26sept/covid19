@@ -107,6 +107,12 @@ const style = makeStyles((theme) => ({
         marginBottom: '100px',
         padding: '20px',
         textAlign: 'center'
+    },
+    rowDiv: {
+        display: 'flex'
+    },
+    row: {
+        display: 'flex'
     }
 }
 ));
@@ -117,6 +123,10 @@ function Demographics() {
 
     const changeSelectedDate = date => {
         setNewDate(date)
+    }
+
+    const dataByType = (e) => {
+
     }
 
 
@@ -136,13 +146,33 @@ function Demographics() {
                     <div><DatePicker className={classes.datePicker} onChange={changeSelectedDate} value={newDate} /></div>
                 </div>
                 <div className={classes.innerHeader}>
-                    <div>Female</div>
-                    <div>Male</div>
-                    <div>Unknown</div>
+                    <div className={classes.rowDiv}>
+                        <div className={classes.row}>
+                            <div>Female</div>
+                            <div>Male</div>
+                            <div>Unknown</div>
+                        </div>
+                        <div className={classes.row}>
+                            <div>Local</div>
+                            <div>Imported</div>
+                            <div>Unknown</div>
+                        </div>
+                        <div className={classes.row}>
+                            <div>IN</div>
+                            <div>UK</div>
+                            <div>US</div>
+                            <div>TH</div>
+                            <div>IT</div>
+                            <div>CA</div>
+                            <div>ID</div>
+                            <div>MM</div>
+                        </div>
+                    </div>
+
                     <div><select>
-                        <option>Genders</option>
-                        <option>Transmission</option>
-                        <option>Unknown</option>
+                        <option value="genders" onChange={dataByType}>Genders</option>
+                        <option value="transmission" onChange={dataByType}>Transmission</option>
+                        <option value="nationality" onChange={dataByType}>Nationality</option>
                     </select></div>
                 </div>
             </div>

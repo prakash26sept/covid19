@@ -73,3 +73,10 @@
   transition: all .2s ease-in-out;
   width: calc(100% - 4rem);
 }
+
+.rdt_TableCol{
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  height: 35px;
+  margin: 0;
+}

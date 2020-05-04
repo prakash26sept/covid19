@@ -4,6 +4,7 @@ import React from 'react';
 import MiniDrawer from '../components/sidebar';
 import Home from '../components/home';
 import Demographics from '../components/demographics';
+import Faq from '../components/faq';
 
 
 const style = makeStyles(theme => createStyles({
@@ -46,7 +47,7 @@ function Navigation() {
                 </Route>
 
                 <Route path="/faq">
-                    <Demographics />
+                    <Faq />
                 </Route>
 
 
