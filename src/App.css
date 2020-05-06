@@ -73,10 +73,46 @@
   transition: all .2s ease-in-out;
   width: calc(100% - 4rem);
 }
+.rdt_TableCell > div{
+  border-radius: 5px !important;
+  margin-right: 3px !important;
+}
 
 .rdt_TableCol{
   background-color: #f7f7f7;
   border-radius: 5px;
   height: 35px;
   margin: 0;
+  margin-right: 3px !important;
+}
+
+
+
+
+.rsm-svg{
+  width: 100%;
+}
+
+.rsm-geographies{
+  width: 100%;
+}
+
+.lineConfirmed canvas{
+  background-color: rgba(255,7,58,.12549);
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+.lineRecovered canvas{
+  background-color: rgba(40,167,69,.12549);
+  border-radius: 6px;
+  margin: 20px 0;
+  margin-top: 20px;
+}
+
+.lineDeceased canvas{
+  background-color: rgba(108,117,125,.0627451);
+  border-radius: 6px;
+  margin: 20px 0;
+  margin-top: 20px;
 }
