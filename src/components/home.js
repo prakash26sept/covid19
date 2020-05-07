@@ -252,7 +252,8 @@ const style = makeStyles((theme) => ({
         marginTop: '30px'
     },
     statesTable: {
-        fontSize: '18px'
+        fontSize: '18px',
+        marginBottom: '30px'
     },
     headingIndia: {
         fontFamily: "archia",
@@ -380,16 +381,19 @@ function Home() {
 
         // console.log(districts[index].districtData);
 
+        if (districts[index] !== undefined) {
+            return (<DataTable
+                columns={districtTableData.columns}
+                data={districts[index].districtData}
+                // overflowX={false}
+                className={classes.statesTable}
+                striped
+                dense
 
-        return (<DataTable
-            columns={districtTableData.columns}
-            data={districts[index].districtData}
-            // overflowX={false}
-            className={classes.statesTable}
-            striped
-            dense
-
-        ></DataTable>)
+            ></DataTable>)
+        } else {
+            return (<div></div>)
+        }
     }
 
     const [tableData, setTableData] = React.useState({
@@ -516,15 +520,21 @@ function Home() {
 
         })
 
+        let resultCon1 = dailyConfirmedByStatee.reduce((r, c, i) => (r.push(i ? c + r[i - 1] : c), r), [])
 
 
-        setDailyConfirmedByState(dailyConfirmedByStatee);
+        let resultCon2 = dailyRecoveredByStatee.reduce((r, c, i) => (r.push(i ? c + r[i - 1] : c), r), [])
+
+
+        let resultCon3 = dailyDeceasedByStatee.reduce((r, c, i) => (r.push(i ? c + r[i - 1] : c), r), [])
+
+        setDailyConfirmedByState(resultCon1);
         setDailyConfirmedByStateDates(dailyConfirmedByStateeDates);
 
-        setDailyRecoveredByState(dailyRecoveredByStatee);
+        setDailyRecoveredByState(resultCon2);
         setDailyRecoveredByStateDates(dailyRecoveredByStateeDates);
 
-        setDailyDeceasedByState(dailyDeceasedByStatee);
+        setDailyDeceasedByState(resultCon3);
         setDailyDeceasedByStateDates(dailyDeceasedByStateeDates);
 
         // console.log(e);
@@ -599,6 +609,18 @@ function Home() {
                             deltaDeceased: data.statewise[0].deltadeaths,
                             totalTested: data.tested[data.tested.length - 1].totalsamplestested
                         })
+
+                        setStateStats({
+                            ...stateStats,
+                            confirmed: data.statewise[0].confirmed,
+                            active: data.statewise[0].active,
+                            recovered: data.statewise[0].recovered,
+                            deceased: data.statewise[0].deaths,
+                            deltaConfirmed: data.statewise[0].deltaconfirmed,
+                            deltaRecovered: data.statewise[0].deltarecovered,
+                            deltaDeceased: data.statewise[0].deltadeaths,
+                        })
+
                     });
                 }
             )
@@ -673,10 +695,50 @@ function Home() {
                             deceased: deceased
                         })
 
-                        // console.log(dailyStatesData);
+                        let dailyConfirmedByStatee = [];
+                        let dailyConfirmedByStateeDates = [];
 
-                        // setDailyStatesData(data);
-                        // console.log(data);
+                        let dailyRecoveredByStatee = [];
+                        let dailyRecoveredByStateeDates = [];
+
+                        let dailyDeceasedByStatee = [];
+                        let dailyDeceasedByStateeDates = [];
+
+                        confirmed.map((val, index) => {
+                            dailyConfirmedByStatee.push(parseInt(val['tt']));
+                            dailyConfirmedByStateeDates.push(val["date"]);
+
+                        })
+
+                        recovered.map((val, index) => {
+                            dailyRecoveredByStatee.push(parseInt(val['tt']));
+                            dailyRecoveredByStateeDates.push(val["date"]);
+
+                        })
+
+                        deceased.map((val, index) => {
+                            dailyDeceasedByStatee.push(parseInt(val['tt']));
+                            dailyDeceasedByStateeDates.push(val["date"]);
+
+                        })
+
+                        let resultCon1 = dailyConfirmedByStatee.reduce((r, c, i) => (r.push(i ? c + r[i - 1] : c), r), [])
+
+
+                        let resultCon2 = dailyRecoveredByStatee.reduce((r, c, i) => (r.push(i ? c + r[i - 1] : c), r), [])
+
+
+                        let resultCon3 = dailyDeceasedByStatee.reduce((r, c, i) => (r.push(i ? c + r[i - 1] : c), r), [])
+
+
+                        setDailyConfirmedByState(resultCon1);
+                        setDailyConfirmedByStateDates(dailyConfirmedByStateeDates);
+
+                        setDailyRecoveredByState(resultCon2);
+                        setDailyRecoveredByStateDates(dailyRecoveredByStateeDates);
+
+                        setDailyDeceasedByState(resultCon3);
+                        setDailyDeceasedByStateDates(dailyDeceasedByStateeDates);
                     });
                 }
             )
@@ -688,17 +750,19 @@ function Home() {
     }, []);
 
     const changeMapType = (e) => {
-        console.log(e.target.id)
-        // e.stopPropagation();
-        let id = "";
-        // if (e.target.id === undefined || e.target.id === '' || e.target.id === null) {
-        //     id = e.parentNode.id
+        // console.log("id: " + e.target.id)
+        e.stopPropagation();
+        console.log(e.target.parentNode.id)
 
-        // }
-        // else {
-        //     id = e.target.id;
-        // }
-        setMapType(e.target.id);
+        let id = "";
+        if (e.target.id === '') {
+            id = e.target.parentNode.id
+
+        }
+        else {
+            id = e.target.id;
+        }
+        setMapType(id);
         // alert(e.target.id);
     }
 
