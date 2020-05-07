@@ -350,6 +350,8 @@ const style = makeStyles((theme) => ({
 
 function Home() {
 
+    const [mapType, setMapType] = useState('confirmed');
+
     const [states, setStates] = useState([]);
     const [dailyStatesData, setDailyStatesData] = useState({
         confirmed: [],
@@ -525,7 +527,7 @@ function Home() {
         setDailyDeceasedByState(dailyDeceasedByStatee);
         setDailyDeceasedByStateDates(dailyDeceasedByStateeDates);
 
-        console.log(e);
+        // console.log(e);
         setStateStats({
             ...stateStats,
             confirmed: e.confirmed,
@@ -648,7 +650,7 @@ function Home() {
 
 
 
-                        console.log(allData);
+                        // console.log(allData);
 
                         allData.map(val => {
                             if (val.status === "Confirmed") {
@@ -685,6 +687,21 @@ function Home() {
 
     }, []);
 
+    const changeMapType = (e) => {
+        console.log(e.target.id)
+        // e.stopPropagation();
+        let id = "";
+        // if (e.target.id === undefined || e.target.id === '' || e.target.id === null) {
+        //     id = e.parentNode.id
+
+        // }
+        // else {
+        //     id = e.target.id;
+        // }
+        setMapType(e.target.id);
+        // alert(e.target.id);
+    }
+
     const lineDataConfirmed = {
         labels: dailyConfirmedByStateDates,
         datasets: [
@@ -694,7 +711,6 @@ function Home() {
                 lineTension: 0.5,
                 backgroundColor: '',
                 showLine: true,
-                backgroundColor: 'rgba(75,192,192,1)',
                 borderColor: 'rgba(0,0,0,1)',
                 pointBorderColor: "rgba(255, 7, 58, 0.6)",
                 pointBackgroundColor: "rgba(255, 7, 58, 0.6)",
@@ -729,7 +745,7 @@ function Home() {
                 label: 'Cases',
                 fill: false,
                 lineTension: 0.5,
-                backgroundColor: '',
+                // backgroundColor: '',
                 showLine: true,
                 backgroundColor: 'rgba(108,117,125,.6)',
                 borderColor: 'rgba(108,117,125,.6)',
@@ -808,22 +824,22 @@ function Home() {
                         <div className={classes.headingIndia}><h2>India Map</h2></div>
                         <div className={classes.hoverForMore}>Hover over a state/UT for more details</div>
                         <div className={classes.mapDetails}>
-                            <div className={classes.mapDetailsInnerConfirmed}>
+                            <div className={classes.mapDetailsInnerConfirmed} id="confirmed" onClick={changeMapType}>
                                 <div className={classes.firstInner}>Confirmed</div>
                                 <div className={classes.secondInner}>{stateStats.confirmed}</div>
                                 <div className={classes.thirdInner}>{stateStats.deltaConfirmed}</div>
                             </div>
-                            <div className={classes.mapDetailsInnerActive}>
+                            <div className={classes.mapDetailsInnerActive} id="active" onClick={changeMapType}>
                                 <div className={classes.firstInner}>Active</div>
                                 <div className={classes.secondInner}>{stateStats.active}</div>
                                 <div className={classes.thirdInner}></div>
                             </div>
-                            <div className={classes.mapDetailsInnerRecovered}>
+                            <div className={classes.mapDetailsInnerRecovered} id="recovered" onClick={changeMapType}>
                                 <div className={classes.firstInner}>Recovered</div>
                                 <div className={classes.secondInner}>{stateStats.recovered}</div>
                                 <div className={classes.thirdInner}>{stateStats.deltaRecovered}</div>
                             </div>
-                            <div className={classes.mapDetailsInnerDeceased}>
+                            <div className={classes.mapDetailsInnerDeceased} id="deaths" onClick={changeMapType}>
                                 <div className={classes.firstInner}>Deceased</div>
                                 <div className={classes.secondInner}>{stateStats.deceased}</div>
                                 <div className={classes.thirdInner}>{stateStats.deltaDeceased}</div>
@@ -841,7 +857,7 @@ function Home() {
                                 <div className={classes.lastUpdatedTime}>{stateStats.lastUpdate}</div>
                             </div>
                         </div>
-                        <Map />
+                        <Map mapType={mapType} />
                         <div className={classes.spreadHeading}>Spread Trends</div>
                         <div className={classes.spreadTrends}>
                             <div className={classes.spreadRow}>
