@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
     faq: {
         width: '25%',
         margin: 'auto',
-        marginBottom: '20px'
+        marginBottom: '20px',
+        [theme.breakpoints.down('sm')]: {
+            width: '60%'
+        }
     },
     description: {
         color: '#007bff',

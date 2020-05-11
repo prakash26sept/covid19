@@ -31,17 +31,28 @@ const style = makeStyles((theme) => ({
         width: '100%',
         display: 'flex',
         justifyContent: 'space-around',
+        [theme.breakpoints.down('sm')]: {
+            justifyContent: 'center',
+            flexDirection: 'column'
+        }
     },
     mainContentInner: {
         width: '40%',
         // width: '100%',
         justifyContent: 'center',
         textAlign: 'center',
+        [theme.breakpoints.down('sm')]: {
+            width: '85%'
+        }
     },
     mapDetails: {
         display: 'flex',
 
         justifyContent: 'space-between',
+        [theme.breakpoints.down('sm')]: {
+            justifyContent: 'center',
+            flexDirection: 'column'
+        }
 
     },
     mapDetailsInnerConfirmed: {
@@ -59,6 +70,7 @@ const style = makeStyles((theme) => ({
         marginRight: '.25rem',
         padding: '.25rem',
         position: 'relative'
+
     },
     mapDetailsInnerActive: {
         background: 'rgba(0,123,255,.0627451)',
@@ -139,6 +151,10 @@ const style = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        [theme.breakpoints.down('sm')]: {
+            justifyContent: 'center',
+            flexDirection: 'column'
+        }
     },
     casesTable: {
         alignSelf: 'center',
@@ -343,6 +359,12 @@ const style = makeStyles((theme) => ({
             textAlign: 'center',
             backgroundColor: 'rgba(255,193,7,.6)',
             margin: '3px'
+        }
+    },
+    tableForStates: {
+        [theme.breakpoints.down('sm')]: {
+            width: '60%',
+            margin: 'auto'
         }
     }
 }
@@ -867,7 +889,7 @@ function Home() {
 
                             </div>
                             <br />
-                            <div>
+                            <div className={classes.tableForStates}>
 
                                 <DataTable
                                     columns={tableData.columns}
